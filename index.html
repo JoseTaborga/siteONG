@@ -15,6 +15,8 @@
   <meta property="og:title" content="Instituto Luz na Rua | Alimentar, acolher e recomeçar">
   <meta property="og:description" content="Transformamos a rua em ponto de partida. Conheça nossos projetos e faça parte dessa rede de cuidado.">
   <meta property="og:locale" content="pt_BR">
+  <meta property="og:image" content="https://www.institutoluznarua.org.br/imagens/hero-distribuicao.jpg">
+  <meta property="og:image:alt" content="Voluntários servindo sopa quente para pessoas em situação de rua à noite, em uma praça pública.">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><circle cx='24' cy='20' r='10' fill='%23f4a261'/><path d='M6 42h36' stroke='%231d3557' stroke-width='4' stroke-linecap='round'/></svg>">
   <link rel="stylesheet" href="css/estilo.css">
@@ -116,14 +118,17 @@
           </dl>
         </div>
 
+        <!-- ALTERADO: ilustração de emojis substituída por <img> real -->
         <figure class="hero__figura">
-          <div class="hero__ilustracao" role="img"
-               aria-label="Ilustração de uma praça com uma banca de distribuição de alimentos iluminada por um poste de luz.">
-            <span class="hero__emoji" aria-hidden="true">🍲</span>
-            <span class="hero__emoji" aria-hidden="true">🤝</span>
-            <span class="hero__emoji" aria-hidden="true">💡</span>
-            <span class="hero__emoji" aria-hidden="true">🧥</span>
-          </div>
+          <img
+            src="imagens/hero-distribuicao.jpg"
+            alt="Voluntários com coletes refletivos laranja servindo sopa quente de uma panela grande para pessoas em situação de rua enfileiradas em uma praça à noite, sob iluminação pública."
+            width="1400"
+            height="933"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            class="hero__imagem">
           <figcaption>Distribuição noturna de refeições quentes no Centro de São Paulo.</figcaption>
         </figure>
 
@@ -143,6 +148,18 @@
             atuação permanente em três regionais da cidade e uma rede de mais de 400
             voluntários.
           </p>
+
+          <!-- ALTERADO: imagem histórica de 2011 inserida logo após o parágrafo da fundação -->
+          <figure class="texto-corrido__figura">
+            <img
+              src="imagens/sopa_fraterna_2011.jpg"
+              alt="Fotografia em preto e branco, de 2011, mostrando voluntários com coletes servindo sopa de panelas grandes em uma mesa, na Praça da Sé, com a Catedral ao fundo. Uma placa na mesa diz 'Ação de Graças – Sopa Fraterna 2011'."
+              width="1200"
+              height="800"
+              loading="lazy"
+              decoding="async">
+            <figcaption>Primeira ação registrada: Sopa Fraterna na Praça da Sé, 2011.</figcaption>
+          </figure>
 
           <p>
             Nosso trabalho não termina na refeição. Entendemos que sair da rua exige
