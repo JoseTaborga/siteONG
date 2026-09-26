@@ -9,7 +9,7 @@
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.institutoluznarua.org.br/cadastro.html">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='20' r='10' fill='%23f4a261'/%3E%3Cpath d='M6 42h36' stroke='%231d3557' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='20' r='10' fill='%23f4a261'/%3E%3Cpath d='M6 42h36' stroke='%231d3557' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/estilo.css">
 </head>
 
@@ -136,6 +136,8 @@
                     required
                     inputmode="numeric"
                     maxlength="14"
+                    pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+                    title="Informe o CPF no formato 000.000.000-00"
                     placeholder="000.000.000-00"
                     aria-describedby="erro-cpf ajuda-cpf">
                   <small id="ajuda-cpf" class="ajuda">Digite apenas números. A validação é feita automaticamente.</small>
@@ -151,6 +153,8 @@
                     required
                     inputmode="tel"
                     maxlength="15"
+                    pattern="\(\d{2}\)\s\d{5}-\d{4}"
+                    title="Informe o telefone no formato (00) 00000-0000"
                     placeholder="(00) 00000-0000"
                     aria-describedby="erro-telefone ajuda-telefone">
                   <small id="ajuda-telefone" class="ajuda">Informe DDD + número.</small>
@@ -184,6 +188,8 @@
                     required
                     inputmode="numeric"
                     maxlength="9"
+                    pattern="\d{5}-\d{3}"
+                    title="Informe o CEP no formato 00000-000"
                     placeholder="00000-000"
                     autocomplete="postal-code"
                     aria-describedby="erro-cep status-cep">
