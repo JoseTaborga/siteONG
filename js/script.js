@@ -5,7 +5,88 @@
   'use strict';
 
   /* ==========================================================
-     1. MÁSCARAS DE ENTRADA
+     1. MENU HAMBÚRGUER (todas as páginas)
+     ========================================================== */
+
+  const menuToggle = document.querySelector('.menu-toggle');
+  const menuNav    = document.getElementById('menu-principal');
+
+  if (menuToggle && menuNav) {
+    // Abre / fecha o painel do menu
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const aberto = menuNav.classList.toggle('aberto');
+      menuToggle.setAttribute('aria-expanded', aberto);
+    });
+
+    // Abre / fecha o submenu "Projetos"
+    document.querySelectorAll('.navegacao__botao').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const submenu = btn.nextElementSibling;
+        const aberto = btn.getAttribute('aria-expanded') === 'true';
+
+        btn.setAttribute('aria-expanded', !aberto);
+        if (submenu) submenu.classList.toggle('aberto', !aberto);
+      });
+    });
+
+    // Fecha tudo ao clicar fora do menu
+    document.addEventListener('click', (e) => {
+      if (!menuNav.contains(e.target) && !menuToggle.contains(e.target)) {
+        menuNav.classList.remove('aberto');
+        menuToggle.setAttribute('aria-expanded', 'false');
+
+        document.querySelectorAll('.submenu.aberto').forEach((s) => s.classList.remove('aberto'));
+        document.querySelectorAll('.navegacao__botao[aria-expanded="true"]')
+          .forEach((b) => b.setAttribute('aria-expanded', 'false'));
+      }
+    });
+
+    // Fecha com a tecla Esc
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        menuNav.classList.remove('aberto');
+        menuToggle.setAttribute('aria-expanded', 'false');
+
+        document.querySelectorAll('.submenu.aberto').forEach((s) => s.classList.remove('aberto'));
+        document.querySelectorAll('.navegacao__botao[aria-expanded="true"]')
+          .forEach((b) => b.setAttribute('aria-expanded', 'false'));
+      }
+    });
+  }
+
+  /* ==========================================================
+     2. MODAIS (dialog nativo — todas as páginas)
+     ========================================================== */
+
+  // Abre modal
+  document.querySelectorAll('[data-abrir-modal]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const modal = document.getElementById(btn.dataset.abrirModal);
+      if (modal && typeof modal.showModal === 'function') {
+        modal.showModal();
+      }
+    });
+  });
+
+  // Fecha modal por botão interno
+  document.querySelectorAll('[data-fechar-modal]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const dialog = btn.closest('dialog');
+      if (dialog) dialog.close();
+    });
+  });
+
+  // Fecha modal ao clicar no backdrop (fora da caixa do dialog)
+  document.querySelectorAll('dialog').forEach((dialog) => {
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+  });
+
+  /* ==========================================================
+     3. MÁSCARAS DE ENTRADA (formulário)
      ========================================================== */
 
   const apenasDigitos = (v) => v.replace(/\D/g, '');
@@ -19,7 +100,7 @@
       .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
   }
 
-  /** Aplica máscara de telefone: (00) 0000-0000 ou (00) 00000-0000 */
+  /** Aplica máscara de telefone: (00) 00000-0000 */
   function mascararTelefone(valor) {
     const d = apenasDigitos(valor).slice(0, 11);
     if (d.length <= 2)  return d.replace(/(\d{0,2})/, '($1');
@@ -42,20 +123,15 @@
       const antes = e.target.value.length;
       e.target.value = funcao(e.target.value);
       const depois = e.target.value.length;
-      // Reposiciona o cursor considerando caracteres adicionados/removidos
       e.target.setSelectionRange(pos + (depois - antes), pos + (depois - antes));
       e.target.dispatchEvent(new Event('validar', { bubbles: true }));
     });
   }
 
   /* ==========================================================
-     2. VALIDAÇÕES LÓGICAS
+     4. VALIDAÇÕES LÓGICAS
      ========================================================== */
 
-  /**
-   * Validação lógica do CPF pelos dígitos verificadores.
-   * Rejeita sequências repetidas (111.111.111-11 etc.).
-   */
   function validarCPF(cpf) {
     const d = apenasDigitos(cpf);
     if (d.length !== 11) return false;
@@ -76,13 +152,6 @@
     return true;
   }
 
-  /**
-   * Validação lógica do telefone brasileiro.
-   * - Deve ter 10 ou 11 dígitos.
-   * - DDD entre 11 e 99.
-   * - Se 11 dígitos, o 3º dígito (primeiro do número) deve ser 9 (celular).
-   * - Se 10 dígitos, o 3º dígito deve ser 2–5 (fixo) ou 9 (celular antigo).
-   */
   function validarTelefone(tel) {
     const d = apenasDigitos(tel);
     if (d.length < 10 || d.length > 11) return false;
@@ -98,14 +167,13 @@
     return false;
   }
 
-  /** Validação de CEP: 8 dígitos, não pode ser tudo zero. */
   function validarCEP(cep) {
     const d = apenasDigitos(cep);
     return d.length === 8 && !/^0{8}$/.test(d);
   }
 
   /* ==========================================================
-     3. FEEDBACK VISUAL DE VALIDAÇÃO
+     5. FEEDBACK VISUAL DE VALIDAÇÃO
      ========================================================== */
 
   function exibirErro(input, elementoErro, mensagem) {
@@ -127,7 +195,7 @@
   }
 
   /* ==========================================================
-     4. INICIALIZAÇÃO DO FORMULÁRIO (apenas em cadastro.html)
+     6. INICIALIZAÇÃO DO FORMULÁRIO (apenas em cadastro.html)
      ========================================================== */
 
   const form = document.getElementById('form-cadastro');
@@ -144,12 +212,12 @@
   const mensagemSucesso = document.getElementById('mensagem-sucesso');
   const statusCEP       = document.getElementById('status-cep');
 
-  // --- Aplica máscaras ---
+  // Aplica máscaras
   aplicarMascara(campoCPF, mascararCPF);
   aplicarMascara(campoTelefone, mascararTelefone);
   aplicarMascara(campoCEP, mascararCEP);
 
-  // --- Validação do CPF ---
+  // Validação do CPF
   campoCPF.addEventListener('validar', () => {
     const erro = document.getElementById('erro-cpf');
     if (campoCPF.value.length === 0) {
@@ -167,7 +235,7 @@
     limparErro(campoCPF, erro);
   });
 
-  // --- Validação do Telefone ---
+  // Validação do Telefone
   campoTelefone.addEventListener('validar', () => {
     const erro = document.getElementById('erro-telefone');
     const d = apenasDigitos(campoTelefone.value);
@@ -186,7 +254,7 @@
     limparErro(campoTelefone, erro);
   });
 
-  // --- Validação + autocompletar CEP (ViaCEP) ---
+  // Validação + autocompletar CEP (ViaCEP)
   let ultimoCEPConsultado = '';
   campoCEP.addEventListener('validar', async () => {
     const erro = document.getElementById('erro-cep');
@@ -210,7 +278,6 @@
 
     limparErro(campoCEP, erro);
 
-    // Evita consultas repetidas ao mesmo CEP
     if (d === ultimoCEPConsultado) return;
     ultimoCEPConsultado = d;
 
@@ -237,7 +304,7 @@
     }
   });
 
-  // --- Validação em blur para todos os campos obrigatórios ---
+  // Validação em blur para os campos obrigatórios
   [campoNome, campoCPF, campoTelefone, campoCEP].forEach((campo) => {
     if (!campo) return;
     campo.addEventListener('blur', () => {
@@ -247,9 +314,7 @@
     });
   });
 
-  /* ==========================================================
-     5. PRÉ-SELEÇÃO PELO PARÂMETRO ?perfil= DA URL
-     ========================================================== */
+  // Pré-seleção pelo parâmetro ?perfil= da URL
   const params = new URLSearchParams(window.location.search);
   const perfilURL = params.get('perfil');
   if (perfilURL) {
@@ -257,18 +322,14 @@
     if (radio) radio.checked = true;
   }
 
-  /* ==========================================================
-     6. SUBMISSÃO DO FORMULÁRIO
-     ========================================================== */
+  // Submissão do formulário
   form.addEventListener('submit', (evento) => {
-    // Dispara validações lógicas em todos os campos
     [campoCPF, campoTelefone, campoCEP].forEach((c) => {
       if (c) c.dispatchEvent(new Event('validar', { bubbles: true }));
     });
 
     if (!form.checkValidity()) {
       evento.preventDefault();
-      // Foca no primeiro campo inválido
       const primeiroInvalido = form.querySelector(':invalid');
       if (primeiroInvalido) {
         primeiroInvalido.focus();
@@ -277,7 +338,6 @@
       return;
     }
 
-    // Bloqueia envio real (demonstração) e mostra mensagem de sucesso
     evento.preventDefault();
     form.hidden = true;
     if (mensagemSucesso) {
@@ -287,9 +347,7 @@
     }
   });
 
-  /* ==========================================================
-     7. RESET DO FORMULÁRIO
-     ========================================================== */
+  // Reset do formulário
   form.addEventListener('reset', () => {
     ['erro-cpf', 'erro-telefone', 'erro-cep'].forEach((id) => {
       const el = document.getElementById(id);
