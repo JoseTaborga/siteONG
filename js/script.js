@@ -5,6 +5,34 @@
   'use strict';
 
   /* ==========================================================
+     0. TOAST — notificações flutuantes
+     ========================================================== */
+  const toastEl = document.getElementById('toast');
+  let toastTimer = null;
+
+  function exibirToast(mensagem, tipo = 'info', duracao = 4000) {
+    if (!toastEl) return;
+
+    if (toastTimer) clearTimeout(toastTimer);
+
+    toastEl.textContent = mensagem;
+    toastEl.className = 'toast';
+    if (tipo !== 'info') toastEl.classList.add(`toast--${tipo}`);
+
+    toastEl.hidden = false;
+    requestAnimationFrame(() => {
+      toastEl.classList.add('visivel');
+    });
+
+    toastTimer = setTimeout(() => {
+      toastEl.classList.remove('visivel');
+      setTimeout(() => { toastEl.hidden = true; }, 300);
+    }, duracao);
+  }
+
+  window.exibirToast = exibirToast;
+
+  /* ==========================================================
      1. MENU HAMBÚRGUER (todas as páginas)
      ========================================================== */
 
