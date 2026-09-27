@@ -17,6 +17,14 @@
   --sombra: 0 4px 18px rgba(29, 53, 87, 0.08);
   --raio: 14px;
   --max: 1160px;
+
+  /* Tokens de espaçamento modular (base 8px) */
+  --esp-1: .5rem;
+  --esp-2: 1rem;
+  --esp-3: 1.5rem;
+  --esp-4: 2rem;
+  --esp-6: 3rem;
+  --esp-8: 4rem;
 }
 
 /* ---------- Reset básico ---------- */
@@ -175,7 +183,6 @@ ul, ol { padding-left: 1.2rem; }
 }
 
 /* ---------- Imagens ---------- */
-
 .hero__imagem {
   width: 100%;
   height: auto;
@@ -186,10 +193,7 @@ ul, ol { padding-left: 1.2rem; }
   display: block;
 }
 
-/* Figura dentro do texto editorial ("Quem somos") */
-.texto-corrido__figura {
-  margin: 2rem 0;
-}
+.texto-corrido__figura { margin: 2rem 0; }
 
 .texto-corrido__figura img {
   width: 100%;
@@ -199,7 +203,7 @@ ul, ol { padding-left: 1.2rem; }
   border-radius: var(--raio);
   box-shadow: var(--sombra);
   display: block;
-  filter: grayscale(100%);   /* mantém o tom documental da foto de 2011 */
+  filter: grayscale(100%);
 }
 
 .texto-corrido__figura figcaption {
@@ -210,19 +214,7 @@ ul, ol { padding-left: 1.2rem; }
   margin-top: .6rem;
 }
 
-/* Remove estilos antigos que não são mais usados */
-/* .hero__ilustracao, .hero__emoji — podem ser removidos */
-
 .hero__figura { margin: 0; }
-/*.hero__ilustracao {
-  background: var(--branco);
-  border-radius: var(--raio);
-  box-shadow: var(--sombra);
-  aspect-ratio: 4/3;
-  display: flex; align-items: center; justify-content: center;
-  flex-wrap: wrap; gap: 1rem; padding: 2rem;
-  font-size: 3.2rem;
-}*/
 .hero__figura figcaption {
   font-size: .85rem; color: var(--cinza); text-align: center;
   margin-top: .75rem; font-style: italic;
@@ -521,7 +513,6 @@ legend {
   margin-top: .3rem;
 }
 
-/* Estados de validação nativa */
 .campo input:user-invalid,
 .campo select:user-invalid,
 .campo textarea:user-invalid {
@@ -533,7 +524,6 @@ legend {
   border-color: var(--verde);
 }
 
-/* Radio / Checkbox customizados */
 .opcoes { display: flex; flex-wrap: wrap; gap: .6rem; }
 .opcoes--checks { gap: .5rem; }
 
@@ -568,7 +558,6 @@ legend {
 }
 .opcao--termo input { margin-top: .25rem; flex-shrink: 0; }
 
-/* Ações do formulário */
 .formulario__acoes {
   display: flex; gap: .75rem; justify-content: flex-end;
   flex-wrap: wrap; padding-top: 1.25rem;
@@ -580,7 +569,6 @@ legend {
   margin: .75rem 0 0;
 }
 
-/* Mensagem de sucesso */
 .mensagem-sucesso {
   background: var(--verde-claro);
   border-left: 5px solid var(--verde);
@@ -590,7 +578,122 @@ legend {
 }
 .mensagem-sucesso h2 { color: var(--verde); }
 
-/* ---------- Responsividade ---------- */
+/* ============================================================
+   SISTEMA DE GRID DE 12 COLUNAS — MOBILE FIRST
+   Breakpoints:
+     xs  → até 479px        (padrão, sem media query)
+     sm  → 480px a 639px    (celular grande)
+     md  → 640px a 899px    (tablet retrato)
+     lg  → 900px a 1199px   (tablet paisagem / notebook)
+     xl  → 1200px a 1599px  (desktop)
+     2xl → 1600px+          (desktop panorâmico)
+   ============================================================ */
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+}
+
+.col-1  { grid-column: span 1; }
+.col-2  { grid-column: span 2; }
+.col-3  { grid-column: span 3; }
+.col-4  { grid-column: span 4; }
+.col-5  { grid-column: span 5; }
+.col-6  { grid-column: span 6; }
+.col-7  { grid-column: span 7; }
+.col-8  { grid-column: span 8; }
+.col-9  { grid-column: span 9; }
+.col-10 { grid-column: span 10; }
+.col-11 { grid-column: span 11; }
+.col-12 { grid-column: span 12; }
+
+/* ---------- Breakpoint 1: sm (480px+) — celular grande ---------- */
+@media (min-width: 480px) {
+  .sm\:col-3  { grid-column: span 3; }
+  .sm\:col-4  { grid-column: span 4; }
+  .sm\:col-6  { grid-column: span 6; }
+  .sm\:col-8  { grid-column: span 8; }
+  .sm\:col-12 { grid-column: span 12; }
+}
+
+/* ---------- Breakpoint 2: md (640px+) — tablet retrato ---------- */
+@media (min-width: 640px) {
+  .md\:col-3  { grid-column: span 3; }
+  .md\:col-4  { grid-column: span 4; }
+  .md\:col-6  { grid-column: span 6; }
+  .md\:col-8  { grid-column: span 8; }
+  .md\:col-9  { grid-column: span 9; }
+  .md\:col-12 { grid-column: span 12; }
+
+  .grade-cartoes,
+  .grade-cartoes--tres { grid-template-columns: repeat(2, 1fr); }
+  .rodape__grade { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- Breakpoint 3: lg (900px+) — tablet paisagem / notebook ---------- */
+@media (min-width: 900px) {
+  .lg\:col-3  { grid-column: span 3; }
+  .lg\:col-4  { grid-column: span 4; }
+  .lg\:col-5  { grid-column: span 5; }
+  .lg\:col-6  { grid-column: span 6; }
+  .lg\:col-7  { grid-column: span 7; }
+  .lg\:col-8  { grid-column: span 8; }
+  .lg\:col-9  { grid-column: span 9; }
+  .lg\:col-12 { grid-column: span 12; }
+
+  .grade-cartoes,
+  .grade-cartoes--tres { grid-template-columns: repeat(3, 1fr); }
+  .rodape__grade { grid-template-columns: repeat(3, 1fr); }
+
+  /* Refatoração para grid de 12 colunas em telas grandes */
+  .hero__interno      { grid-template-columns: repeat(12, 1fr); }
+  .hero__texto        { grid-column: span 7; }
+  .hero__figura       { grid-column: span 5; }
+
+  .secao__grade       { grid-template-columns: repeat(12, 1fr); }
+  .texto-corrido      { grid-column: span 8; }
+  .cartao-lateral     { grid-column: span 4; }
+
+  .projeto__grade     { grid-template-columns: repeat(12, 1fr); }
+  .projeto__midia     { grid-column: span 5; }
+  .projeto__conteudo  { grid-column: span 7; }
+  .projeto__grade--invertido .projeto__midia    { grid-column: span 5; }
+  .projeto__grade--invertido .projeto__conteudo { grid-column: span 7; }
+
+  .container--formulario { grid-template-columns: repeat(12, 1fr); }
+  .formulario__lateral   { grid-column: span 4; }
+  .formulario__principal { grid-column: span 8; }
+}
+
+/* ---------- Breakpoint 4: xl (1200px+) — desktop ---------- */
+@media (min-width: 1200px) {
+  :root { --max: 1240px; }
+
+  .xl\:col-3 { grid-column: span 3; }
+  .xl\:col-4 { grid-column: span 4; }
+  .xl\:col-6 { grid-column: span 6; }
+
+  .secao { padding: 5rem 0; }
+  .hero  { padding: 5rem 0; }
+}
+
+/* ---------- Breakpoint 5: 2xl (1600px+) — desktop panorâmico ---------- */
+@media (min-width: 1600px) {
+  :root { --max: 1400px; }
+
+  body { font-size: 1.0625rem; }
+
+  .secao { padding: 6rem 0; }
+  .hero  { padding: 6rem 0; }
+  h1     { font-size: 2.8rem; }
+  h2     { font-size: 2.15rem; }
+}
+
+/* ============================================================
+   AJUSTES PARA TELAS PEQUENAS (mantidos como refinamento)
+   ============================================================ */
+/*
 @media (max-width: 960px) {
   .hero__interno,
   .secao__grade,
@@ -617,4 +720,4 @@ legend {
   .rodape__base { flex-direction: column; }
   .formulario__acoes { flex-direction: column-reverse; }
   .formulario__acoes .botao { width: 100%; }
-}
+}*/
