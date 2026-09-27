@@ -18,7 +18,7 @@
   <meta property="og:image" content="https://www.institutoluznarua.org.br/imagens/hero-distribuicao.jpg">
   <meta property="og:image:alt" content="Voluntários servindo sopa quente para pessoas em situação de rua à noite, em uma praça pública.">
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><circle cx='24' cy='20' r='10' fill='%23f4a261'/><path d='M6 42h36' stroke='%231d3557' stroke-width='4' stroke-linecap='round'/></svg>">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='20' r='10' fill='%23f4a261'/%3E%3Cpath d='M6 42h36' stroke='%231d3557' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/estilo.css">
 
   <script type="application/ld+json">
@@ -66,10 +66,35 @@
         </span>
       </a>
 
-      <nav class="navegacao" aria-label="Navegação principal">
+      <!-- Botão hambúrguer (visível apenas em telas pequenas) -->
+      <button class="menu-toggle" type="button"
+              aria-expanded="false"
+              aria-controls="menu-principal"
+              aria-label="Abrir menu de navegação">
+        <span class="menu-toggle__barra"></span>
+        <span class="menu-toggle__barra"></span>
+        <span class="menu-toggle__barra"></span>
+      </button>
+
+      <nav id="menu-principal" class="navegacao" aria-label="Navegação principal">
         <ul class="navegacao__lista">
           <li><a href="index.html" aria-current="page">Início</a></li>
-          <li><a href="projetos.html">Projetos</a></li>
+
+          <!-- Item com dropdown -->
+          <li class="tem-submenu">
+            <button class="navegacao__botao" type="button"
+                    aria-expanded="false"
+                    aria-haspopup="true">
+              Projetos <span aria-hidden="true">▾</span>
+            </button>
+            <ul class="submenu">
+              <li><a href="projetos.html#prato-cheio">Prato Cheio</a></li>
+              <li><a href="projetos.html#recomeco">Recomeço</a></li>
+              <li><a href="projetos.html#maos-a-obra">Mãos à Obra</a></li>
+              <li><a href="projetos.html">Ver todos os projetos</a></li>
+            </ul>
+          </li>
+
           <li><a href="cadastro.html" class="navegacao__destaque">Quero Ajudar</a></li>
         </ul>
       </nav>
@@ -118,7 +143,6 @@
           </dl>
         </div>
 
-        <!-- ALTERADO: ilustração de emojis substituída por <img> real -->
         <figure class="hero__figura">
           <img
             src="imagens/hero-distribuicao.jpg"
@@ -149,7 +173,6 @@
             voluntários.
           </p>
 
-          <!-- ALTERADO: imagem histórica de 2011 inserida logo após o parágrafo da fundação -->
           <figure class="texto-corrido__figura">
             <img
               src="imagens/sopa_fraterna_2011.jpg"
@@ -214,9 +237,9 @@
 
         <div class="grade-cartoes">
 
-          <article class="cartao">
+          <article class="cartao" aria-labelledby="card-pilar-1">
             <span class="cartao__icone" aria-hidden="true">🍲</span>
-            <h3>1. Alimentar e acolher</h3>
+            <h3 id="card-pilar-1">1. Alimentar e acolher</h3>
             <p>
               Cozinhas solidárias, distribuição noturna de refeições quentes, kits de higiene,
               cobertores e vagas em abrigos parceiros nos meses de frio intenso.
@@ -226,12 +249,14 @@
               <li>4 pontos fixos de distribuição</li>
               <li>Acolhimento sem exigência de documentos</li>
             </ul>
-            <a href="projetos.html#prato-cheio" class="link-seta">Ver o projeto Prato Cheio</a>
+            <a href="projetos.html#prato-cheio" class="link-seta">
+              Ver o projeto Prato Cheio<span class="sr-only"> — Alimentar e acolher</span>
+            </a>
           </article>
 
-          <article class="cartao">
+          <article class="cartao" aria-labelledby="card-pilar-2">
             <span class="cartao__icone" aria-hidden="true">💚</span>
-            <h3>2. Cuidar e encaminhar</h3>
+            <h3 id="card-pilar-2">2. Cuidar e encaminhar</h3>
             <p>
               Apoio para tratamento de dependência química, consultas, emissão de documentos
               e reconexão com a rede pública de saúde e assistência social.
@@ -241,12 +266,14 @@
               <li>Mutirão mensal de documentação</li>
               <li>Acompanhamento por 12 meses</li>
             </ul>
-            <a href="projetos.html#recomeco" class="link-seta">Ver o Projeto Recomeço</a>
+            <a href="projetos.html#recomeco" class="link-seta">
+              Ver o Projeto Recomeço<span class="sr-only"> — Cuidar e encaminhar</span>
+            </a>
           </article>
 
-          <article class="cartao">
+          <article class="cartao" aria-labelledby="card-pilar-3">
             <span class="cartao__icone" aria-hidden="true">🌱</span>
-            <h3>3. Oportunizar e recomeçar</h3>
+            <h3 id="card-pilar-3">3. Oportunizar e recomeçar</h3>
             <p>
               Capacitação profissional, bolsa-aprendiz, intermediação com empresas parceiras
               e apoio na busca por moradia e renda.
@@ -256,7 +283,9 @@
               <li>38 empresas parceiras</li>
               <li>62% de inserção em até 6 meses</li>
             </ul>
-            <a href="projetos.html#maos-a-obra" class="link-seta">Ver o Mãos à Obra</a>
+            <a href="projetos.html#maos-a-obra" class="link-seta">
+              Ver o Mãos à Obra<span class="sr-only"> — Oportunizar e recomeçar</span>
+            </a>
           </article>
 
         </div>
@@ -277,9 +306,9 @@
 
         <div class="grade-cartoes grade-cartoes--tres">
 
-          <article class="cartao cartao--acao">
+          <article class="cartao cartao--acao" aria-labelledby="card-acao-1">
             <span class="cartao__icone" aria-hidden="true">❤️</span>
-            <h3>Doar</h3>
+            <h3 id="card-acao-1">Doar</h3>
             <p>
               R$ 45 mantêm uma pessoa alimentada por uma semana. A doação é 100% aplicada
               nos projetos e o relatório financeiro é público.
@@ -287,9 +316,9 @@
             <a href="cadastro.html?perfil=doador" class="botao botao--primario">Quero doar</a>
           </article>
 
-          <article class="cartao cartao--acao">
+          <article class="cartao cartao--acao" aria-labelledby="card-acao-2">
             <span class="cartao__icone" aria-hidden="true">🙌</span>
-            <h3>Voluntariar</h3>
+            <h3 id="card-acao-2">Voluntariar</h3>
             <p>
               Precisamos de cozinheiros, motoristas, psicólogos, advogados, professores e
               também de quem nunca fez nada disso antes.
@@ -297,9 +326,9 @@
             <a href="cadastro.html?perfil=voluntario" class="botao botao--primario">Quero ser voluntário</a>
           </article>
 
-          <article class="cartao cartao--acao">
+          <article class="cartao cartao--acao" aria-labelledby="card-acao-3">
             <span class="cartao__icone" aria-hidden="true">📣</span>
-            <h3>Divulgar</h3>
+            <h3 id="card-acao-3">Divulgar</h3>
             <p>
               Compartilhar nosso trabalho amplia a rede de apoio e reduz o preconceito
               que afasta essas pessoas de serviços públicos.

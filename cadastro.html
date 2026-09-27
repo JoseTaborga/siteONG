@@ -37,10 +37,35 @@
         </span>
       </a>
 
-      <nav class="navegacao" aria-label="Navegação principal">
+      <!-- Botão hambúrguer (visível apenas em telas pequenas) -->
+      <button class="menu-toggle" type="button"
+              aria-expanded="false"
+              aria-controls="menu-principal"
+              aria-label="Abrir menu de navegação">
+        <span class="menu-toggle__barra"></span>
+        <span class="menu-toggle__barra"></span>
+        <span class="menu-toggle__barra"></span>
+      </button>
+
+      <nav id="menu-principal" class="navegacao" aria-label="Navegação principal">
         <ul class="navegacao__lista">
           <li><a href="index.html">Início</a></li>
-          <li><a href="projetos.html">Projetos</a></li>
+
+          <!-- Item com dropdown -->
+          <li class="tem-submenu">
+            <button class="navegacao__botao" type="button"
+                    aria-expanded="false"
+                    aria-haspopup="true">
+              Projetos <span aria-hidden="true">▾</span>
+            </button>
+            <ul class="submenu">
+              <li><a href="projetos.html#prato-cheio">Prato Cheio</a></li>
+              <li><a href="projetos.html#recomeco">Recomeço</a></li>
+              <li><a href="projetos.html#maos-a-obra">Mãos à Obra</a></li>
+              <li><a href="projetos.html">Ver todos os projetos</a></li>
+            </ul>
+          </li>
+
           <li><a href="cadastro.html" class="navegacao__destaque" aria-current="page">Quero Ajudar</a></li>
         </ul>
       </nav>
@@ -344,7 +369,13 @@
                 <input type="checkbox" id="aceite" name="aceite" required>
                 <span>
                   Li e concordo com o tratamento dos meus dados conforme a LGPD
-                  e com o <a href="#">Termo de Voluntariado</a> da organização.
+                  e com o
+                  <button type="button" class="link-botao"
+                          data-abrir-modal="modal-termo"
+                          aria-haspopup="dialog">
+                    Termo de Voluntariado
+                  </button>
+                  da organização.
                   <span class="obrigatorio" aria-hidden="true">*</span>
                 </span>
               </label>
@@ -365,6 +396,37 @@
               <span class="obrigatorio" aria-hidden="true">*</span> Campos obrigatórios.
             </p>
           </form>
+
+          <!-- MODAL: Termo de Voluntariado -->
+          <dialog id="modal-termo" class="modal" aria-labelledby="titulo-termo">
+            <header class="modal__cabecalho">
+              <h2 id="titulo-termo">Termo de Voluntariado</h2>
+              <button type="button" class="modal__fechar"
+                      data-fechar-modal aria-label="Fechar janela">×</button>
+            </header>
+
+            <div class="modal__corpo">
+              <p>
+                Ao se cadastrar como voluntário(a) do Instituto Luz na Rua, você declara
+                estar ciente das diretrizes de atuação, do código de conduta e da
+                política de proteção de dados da organização.
+              </p>
+              <p>
+                O voluntariado é gratuito, não gera vínculo empregatício e pode ser
+                encerrado a qualquer momento por qualquer das partes, mediante simples
+                comunicação à coordenação.
+              </p>
+              <p>
+                As atividades envolvem contato direto com pessoas em situação de
+                vulnerabilidade. Por isso, todos os voluntários passam por uma formação
+                inicial obrigatória antes de integrarem as rotas de campo.
+              </p>
+            </div>
+
+            <footer class="modal__rodape">
+              <button type="button" class="botao botao--primario" data-fechar-modal>Entendi</button>
+            </footer>
+          </dialog>
 
           <!-- Mensagem de sucesso (oculta até o envio válido) -->
           <div id="mensagem-sucesso" class="mensagem-sucesso" role="status" hidden>

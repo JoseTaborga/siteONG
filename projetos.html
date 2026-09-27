@@ -10,7 +10,7 @@
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.institutoluznarua.org.br/projetos.html">
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><circle cx='24' cy='20' r='10' fill='%23f4a261'/><path d='M6 42h36' stroke='%231d3557' stroke-width='4' stroke-linecap='round'/></svg>">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='20' r='10' fill='%23f4a261'/%3E%3Cpath d='M6 42h36' stroke='%231d3557' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/estilo.css">
 </head>
 
@@ -38,10 +38,36 @@
         </span>
       </a>
 
-      <nav class="navegacao" aria-label="Navegação principal">
+      <!-- Botão hambúrguer (visível apenas em telas pequenas) -->
+      <button class="menu-toggle" type="button"
+              aria-expanded="false"
+              aria-controls="menu-principal"
+              aria-label="Abrir menu de navegação">
+        <span class="menu-toggle__barra"></span>
+        <span class="menu-toggle__barra"></span>
+        <span class="menu-toggle__barra"></span>
+      </button>
+
+      <nav id="menu-principal" class="navegacao" aria-label="Navegação principal">
         <ul class="navegacao__lista">
           <li><a href="index.html">Início</a></li>
-          <li><a href="projetos.html" aria-current="page">Projetos</a></li>
+
+          <!-- Item com dropdown — marcado como página atual nesta página -->
+          <li class="tem-submenu">
+            <button class="navegacao__botao" type="button"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    aria-current="page">
+              Projetos <span aria-hidden="true">▾</span>
+            </button>
+            <ul class="submenu">
+              <li><a href="projetos.html#prato-cheio">Prato Cheio</a></li>
+              <li><a href="projetos.html#recomeco">Recomeço</a></li>
+              <li><a href="projetos.html#maos-a-obra">Mãos à Obra</a></li>
+              <li><a href="projetos.html">Ver todos os projetos</a></li>
+            </ul>
+          </li>
+
           <li><a href="cadastro.html" class="navegacao__destaque">Quero Ajudar</a></li>
         </ul>
       </nav>
@@ -238,35 +264,37 @@
         </header>
 
         <div class="grade-cartoes grade-cartoes--tres">
-          <article class="cartao cartao--numero">
+
+          <article class="cartao cartao--numero" aria-labelledby="result-1">
             <span class="cartao__numero">210.480</span>
-            <p>refeições quentes servidas</p>
+            <p id="result-1">refeições quentes servidas</p>
           </article>
 
-          <article class="cartao cartao--numero">
+          <article class="cartao cartao--numero" aria-labelledby="result-2">
             <span class="cartao__numero">2.730</span>
-            <p>pessoas acolhidas em alguma frente</p>
+            <p id="result-2">pessoas acolhidas em alguma frente</p>
           </article>
 
-          <article class="cartao cartao--numero">
+          <article class="cartao cartao--numero" aria-labelledby="result-3">
             <span class="cartao__numero">197</span>
-            <p>reinserções em trabalho formal</p>
+            <p id="result-3">reinserções em trabalho formal</p>
           </article>
 
-          <article class="cartao cartao--numero">
+          <article class="cartao cartao--numero" aria-labelledby="result-4">
             <span class="cartao__numero">1.940</span>
-            <p>documentos emitidos</p>
+            <p id="result-4">documentos emitidos</p>
           </article>
 
-          <article class="cartao cartao--numero">
+          <article class="cartao cartao--numero" aria-labelledby="result-5">
             <span class="cartao__numero">287</span>
-            <p>encaminhamentos para tratamento</p>
+            <p id="result-5">encaminhamentos para tratamento</p>
           </article>
 
-          <article class="cartao cartao--numero">
+          <article class="cartao cartao--numero" aria-labelledby="result-6">
             <span class="cartao__numero">94%</span>
-            <p>das doações aplicadas diretamente em campo</p>
+            <p id="result-6">das doações aplicadas diretamente em campo</p>
           </article>
+
         </div>
       </div>
     </section>
