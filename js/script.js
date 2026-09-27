@@ -373,6 +373,7 @@
       mensagemSucesso.scrollIntoView({ behavior: 'smooth', block: 'center' });
       mensagemSucesso.focus();
     }
+    exibirToast('Cadastro enviado! Entraremos em contato em até 2 dias úteis.', 'sucesso', 6000);
   });
 
   // Reset do formulário
