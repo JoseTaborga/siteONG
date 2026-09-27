@@ -37,7 +37,6 @@
         </span>
       </a>
 
-      <!-- Botão hambúrguer (visível apenas em telas pequenas) -->
       <button class="menu-toggle" type="button"
               aria-expanded="false"
               aria-controls="menu-principal"
@@ -51,7 +50,6 @@
         <ul class="navegacao__lista">
           <li><a href="index.html">Início</a></li>
 
-          <!-- Item com dropdown -->
           <li class="tem-submenu">
             <button class="navegacao__botao" type="button"
                     aria-expanded="false"
@@ -96,7 +94,6 @@
     <section class="secao" aria-labelledby="titulo-formulario">
       <div class="container container--formulario">
 
-        <!-- Resumo lateral -->
         <aside class="formulario__lateral" aria-labelledby="titulo-lateral">
           <h2 id="titulo-lateral">Por que pedimos esses dados?</h2>
 
@@ -115,13 +112,11 @@
           </p>
         </aside>
 
-        <!-- Formulário -->
         <div class="formulario__principal">
           <h2 id="titulo-formulario" class="sr-only">Formulário de cadastro</h2>
 
           <form id="form-cadastro" action="#" method="post" autocomplete="on">
 
-            <!-- DADOS PESSOAIS -->
             <fieldset>
               <legend>1. Dados pessoais</legend>
 
@@ -199,7 +194,6 @@
               </div>
             </fieldset>
 
-            <!-- ENDEREÇO -->
             <fieldset>
               <legend>2. Endereço</legend>
 
@@ -304,7 +298,6 @@
               </div>
             </fieldset>
 
-            <!-- PERFIL DE ENGAJAMENTO -->
             <fieldset>
               <legend>3. Como você quer ajudar?</legend>
 
@@ -361,7 +354,6 @@
               </div>
             </fieldset>
 
-            <!-- CONSENTIMENTO -->
             <fieldset>
               <legend>4. Consentimento</legend>
 
@@ -386,7 +378,6 @@
               </label>
             </fieldset>
 
-            <!-- AÇÕES -->
             <div class="formulario__acoes">
               <button type="reset" class="botao botao--contorno">Limpar</button>
               <button type="submit" class="botao botao--primario">Enviar cadastro</button>
@@ -397,7 +388,6 @@
             </p>
           </form>
 
-          <!-- MODAL: Termo de Voluntariado -->
           <dialog id="modal-termo" class="modal" aria-labelledby="titulo-termo">
             <header class="modal__cabecalho">
               <h2 id="titulo-termo">Termo de Voluntariado</h2>
@@ -428,7 +418,6 @@
             </footer>
           </dialog>
 
-          <!-- Mensagem de sucesso (oculta até o envio válido) -->
           <div id="mensagem-sucesso" class="mensagem-sucesso" role="status" hidden>
             <h2>Cadastro enviado com sucesso! 🎉</h2>
             <p>
@@ -481,6 +470,9 @@
       <p>Prestação de contas disponível em nosso portal da transparência.</p>
     </div>
   </footer>
+
+  <!-- Container do toast (oculto por padrão) -->
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
   <script src="js/script.js"></script>
 </body>

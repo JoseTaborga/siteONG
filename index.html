@@ -66,7 +66,6 @@
         </span>
       </a>
 
-      <!-- Botão hambúrguer (visível apenas em telas pequenas) -->
       <button class="menu-toggle" type="button"
               aria-expanded="false"
               aria-controls="menu-principal"
@@ -80,7 +79,6 @@
         <ul class="navegacao__lista">
           <li><a href="index.html" aria-current="page">Início</a></li>
 
-          <!-- Item com dropdown -->
           <li class="tem-submenu">
             <button class="navegacao__botao" type="button"
                     aria-expanded="false"
@@ -391,6 +389,9 @@
       <p>Prestação de contas disponível em nosso portal da transparência.</p>
     </div>
   </footer>
+
+  <!-- Container do toast (oculto por padrão) -->
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
   <script src="js/script.js"></script>
 </body>
