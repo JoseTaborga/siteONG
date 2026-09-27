@@ -107,22 +107,41 @@ ul, ol { padding-left: 1.2rem; }
 .cabecalho__interno {
   display: flex; align-items: center; justify-content: space-between;
   gap: 1.5rem; padding-block: .85rem;
+  position: relative;
 }
 
 .logo { display: flex; align-items: center; gap: .7rem; text-decoration: none; }
 .logo__texto strong { display: block; font-size: 1.05rem; color: var(--azul); }
 .logo__texto small { display: block; font-size: .72rem; color: var(--cinza); letter-spacing: .04em; text-transform: uppercase; }
 
+/* ---------- Menu hambúrguer ---------- */
+.menu-toggle {
+  display: none;
+  background: transparent; border: 0; cursor: pointer;
+  padding: .5rem; flex-direction: column; gap: .3rem;
+  justify-content: center; align-items: center;
+}
+.menu-toggle__barra {
+  display: block; width: 24px; height: 3px;
+  background: var(--azul); border-radius: 2px;
+  transition: transform .2s, opacity .2s;
+}
+
+/* ---------- Navegação ---------- */
 .navegacao__lista {
   display: flex; gap: .35rem; list-style: none; margin: 0; padding: 0;
 }
-.navegacao__lista a {
+.navegacao__lista a,
+.navegacao__botao {
   display: inline-block; padding: .55rem .9rem;
   text-decoration: none; color: var(--azul);
   border-radius: 8px; font-weight: 500;
   transition: background .15s, color .15s;
+  background: transparent; border: 0; cursor: pointer;
+  font-family: inherit; font-size: 1rem;
 }
-.navegacao__lista a:hover { background: var(--bege); color: var(--laranja-escuro); }
+.navegacao__lista a:hover,
+.navegacao__botao:hover { background: var(--bege); color: var(--laranja-escuro); }
 .navegacao__lista a[aria-current="page"] { background: var(--bege); font-weight: 700; }
 .navegacao__destaque {
   background: var(--laranja) !important;
@@ -130,6 +149,47 @@ ul, ol { padding-left: 1.2rem; }
   font-weight: 700 !important;
 }
 .navegacao__destaque:hover { background: var(--laranja-escuro) !important; }
+
+/* Item com submenu */
+.tem-submenu { position: relative; }
+.navegacao__botao[aria-expanded="true"] { background: var(--bege); }
+
+.submenu {
+  position: absolute; top: 100%; left: 0;
+  background: var(--branco); box-shadow: var(--sombra);
+  border-radius: var(--raio); min-width: 220px;
+  padding: .5rem; list-style: none; margin: .25rem 0 0;
+  display: none; z-index: 200;
+}
+.submenu.aberto { display: block; }
+.submenu a {
+  display: block; padding: .55rem .85rem;
+  border-radius: 8px; text-decoration: none; color: var(--azul);
+}
+.submenu a:hover { background: var(--bege); color: var(--laranja-escuro); }
+
+/* Em telas pequenas: menu vira coluna dentro de um painel */
+@media (max-width: 899px) {
+  .menu-toggle { display: flex; }
+
+  .navegacao {
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--branco); box-shadow: var(--sombra);
+    display: none; padding: 1rem 1.25rem;
+    border-top: 1px solid var(--cinza-claro);
+  }
+  .navegacao.aberto { display: block; }
+
+  .navegacao__lista { flex-direction: column; gap: .25rem; }
+  .navegacao__lista a,
+  .navegacao__botao { display: block; width: 100%; text-align: left; }
+
+  .submenu {
+    position: static; box-shadow: none; padding-left: 1rem;
+    margin-top: .25rem; display: none;
+  }
+  .submenu.aberto { display: block; }
+}
 
 /* ---------- Botões ---------- */
 .botao {
@@ -150,6 +210,15 @@ ul, ol { padding-left: 1.2rem; }
 
 .botao--claro { background: var(--branco); color: var(--azul); }
 .botao--claro:hover { background: var(--bege); color: var(--azul); }
+
+/* Botão que parece link (usado no Termo de Voluntariado) */
+.link-botao {
+  background: transparent; border: 0; padding: 0;
+  color: var(--azul-claro); text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer; font: inherit;
+}
+.link-botao:hover { color: var(--laranja-escuro); }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -232,9 +301,18 @@ ul, ol { padding-left: 1.2rem; }
   padding: 1.8rem;
   box-shadow: var(--sombra);
   display: flex; flex-direction: column;
-  transition: transform .15s;
+  transition: transform .15s, box-shadow .15s;
 }
 .cartao:hover { transform: translateY(-4px); }
+
+/* Foco acessível dentro do cartão (ao navegar por teclado) */
+.cartao:focus-within {
+  outline: 3px solid var(--laranja);
+  outline-offset: 2px;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(29, 53, 87, 0.15);
+}
+
 .cartao__icone { font-size: 2rem; margin-bottom: .6rem; }
 .cartao__lista { list-style: none; padding: 0; margin: 0 0 1.25rem; }
 .cartao__lista li {
@@ -579,6 +657,41 @@ legend {
 .mensagem-sucesso h2 { color: var(--verde); }
 
 /* ============================================================
+   MODAL (dialog)
+   ============================================================ */
+.modal {
+  border: 0;
+  border-radius: var(--raio);
+  padding: 0;
+  max-width: 560px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(29, 53, 87, 0.25);
+  color: var(--azul);
+}
+.modal::backdrop {
+  background: rgba(29, 53, 87, 0.6);
+  backdrop-filter: blur(2px);
+}
+.modal__cabecalho {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--cinza-claro);
+}
+.modal__cabecalho h2 { margin: 0; font-size: 1.2rem; }
+.modal__fechar {
+  background: transparent; border: 0; cursor: pointer;
+  font-size: 1.75rem; line-height: 1; color: var(--cinza);
+  padding: 0 .25rem;
+}
+.modal__fechar:hover { color: var(--vermelho); }
+.modal__corpo { padding: 1.5rem; }
+.modal__rodape {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--cinza-claro);
+  display: flex; justify-content: flex-end;
+}
+
+/* ============================================================
    SISTEMA DE GRID DE 12 COLUNAS — MOBILE FIRST
    Breakpoints:
      xs  → até 479px        (padrão, sem media query)
@@ -691,33 +804,22 @@ legend {
 }
 
 /* ============================================================
-   AJUSTES PARA TELAS PEQUENAS (mantidos como refinamento)
+   AJUSTES PARA TELAS PEQUENAS (mobile first — sem max-width)
    ============================================================ */
-/*
-@media (max-width: 960px) {
-  .hero__interno,
-  .secao__grade,
-  .projeto__grade,
-  .projeto__grade--invertido,
-  .container--formulario,
-  .grade-cartoes,
-  .grade-cartoes--tres,
-  .rodape__grade {
-    grid-template-columns: 1fr;
-  }
 
+@media (max-width: 899px) {
   .hero__indicadores { grid-template-columns: repeat(3, 1fr); }
   .projeto__grade--invertido .projeto__midia { order: -1; }
   .formulario__lateral { position: static; }
   .indice { position: static; }
+  .indice__interno { padding-block: .65rem; }
 }
 
 @media (max-width: 620px) {
-  .cabecalho__interno { flex-direction: column; gap: .75rem; }
   .hero__indicadores { grid-template-columns: 1fr; }
   .projeto__numeros { grid-template-columns: 1fr; gap: .75rem; }
   .campo-grupo--numero { grid-template-columns: 1fr; }
   .rodape__base { flex-direction: column; }
   .formulario__acoes { flex-direction: column-reverse; }
   .formulario__acoes .botao { width: 100%; }
-}*/
+}
